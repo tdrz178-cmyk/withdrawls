@@ -1,0 +1,13 @@
+{
+  "name": "withdrawls",
+  "version": "1.0.0",
+  "description": "Streetwear store demo",
+  "scripts": {
+    "start": "lite-server",
+    "test": "echo \"No tests\""
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "private": true
+}
