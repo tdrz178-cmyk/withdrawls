@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Withdrawls Store</title>
-  <meta name="description" content="Withdrawls - Demo online store" />
+  <title>Your Cart - Withdrawls Store</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -13,21 +12,18 @@
       <a href="/" class="logo">Withdrawls</a>
       <button id="menuBtn" aria-expanded="false" aria-controls="menu">☰</button>
       <ul id="menu" class="menu">
-        <li><a href="#products">Shop</a></li>
+        <li><a href="index.html">Shop</a></li>
         <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="hero container">
-    <h1>Welcome to <span>Withdrawls Store</span></h1>
-    <p>Select from our range of awesome widgets.</p>
-  </section>
-
-  <section id="products" class="container">
-    <h2>Products</h2>
-    <div id="productList" class="grid"></div>
-  </section>
+  <main class="container">
+    <h1>Your Cart</h1>
+    <div id="cartItems"></div>
+    <p id="cartTotal"></p>
+    <button id="clearCart" class="btn">Clear Cart</button>
+  </main>
 
   <footer class="container">
     <small>© <span id="year"></span> Withdrawls. All rights reserved.</small>
