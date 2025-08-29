@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Withdrawls</title>
+  <meta name="description" content="Withdrawls - A modern, custom-coded website." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="container">
+    <nav class="nav">
+      <a href="/" class="logo">Withdrawls</a>
+      <button id="menuBtn" aria-expanded="false" aria-controls="menu">☰</button>
+      <ul id="menu" class="menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact" class="btn">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero container">
+    <h1>Welcome to <span>Withdrawls</span></h1>
+    <p>A clean, custom-coded website built from scratch.</p>
+    <a href="#about" class="btn">Learn More</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="container">
+    <h2>About Withdrawls</h2>
+    <p>
+      Withdrawls is a starting point for your online presence.
+      It’s fully responsive, lightweight, and customizable.
+      Use it for a portfolio, business landing page, or any project.
+    </p>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="container grid">
+    <article>
+      <h3>⚡ Fast</h3>
+      <p>No heavy frameworks—just plain HTML, CSS, and JavaScript.</p>
+    </article>
+    <article>
+      <h3>📱 Responsive</h3>
+      <p>Looks great on desktops, tablets, and smartphones.</p>
+    </article>
+    <article>
+      <h3>🔒 Secure</h3>
+      <p>Works with free HTTPS (SSL) certificates via Netlify or Vercel.</p>
+    </article>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label>
+        Name
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="4" required></textarea>
+      </label>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+    <p id="msg" aria-live="polite"></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <small>© <span id="year"></span> Withdrawls. All rights reserved.</small>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

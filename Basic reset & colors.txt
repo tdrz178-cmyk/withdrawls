@@ -1,0 +1,78 @@
+/* Basic reset & colors */
+:root {
+  --bg: #0d1117;
+  --fg: #e6edf3;
+  --muted: #9ca3af;
+  --accent: #3b82f6;
+  --card: #161b22;
+  --border: #30363d;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font: 16px/1.6 system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+  padding: 2rem 0;
+}
+
+/* NAVIGATION */
+.nav { display: flex; align-items: center; gap: 1rem; }
+.logo { font-weight: bold; color: var(--fg); text-decoration: none; font-size: 1.2rem; }
+.menu { list-style: none; display: flex; gap: 1rem; margin-left: auto; }
+.menu li a { color: var(--fg); text-decoration: none; }
+#menuBtn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--fg); cursor: pointer; }
+
+/* HERO */
+.hero { text-align: center; padding: 6rem 0; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); }
+.hero span { color: var(--accent); }
+.hero p { margin: 1rem 0; color: var(--muted); }
+
+/* SECTIONS */
+h2 { margin-bottom: 1rem; }
+p { margin-bottom: 1rem; }
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, 1fr); }
+article {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+/* CONTACT FORM */
+form label { display: block; margin-bottom: 0.8rem; }
+input, textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #0e1218;
+  color: var(--fg);
+  margin-top: 0.3rem;
+}
+button.btn, a.btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+#msg { margin-top: 1rem; color: var(--accent); }
+
+/* FOOTER */
+footer { text-align: center; padding: 2rem 0; color: var(--muted); }
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .grid { grid-template-columns: 1fr; }
+  #menuBtn { display: block; margin-left: auto; }
+  .menu { display: none; flex-direction: column; background: var(--card); padding: 1rem; border-radius: 8px; position: absolute; right: 1rem; top: 4rem; }
+  .menu.open { display: flex; }
+}
