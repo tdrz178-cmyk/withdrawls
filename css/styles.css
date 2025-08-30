@@ -42,7 +42,12 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.hero span { color: var(--accent); }
+.hero-top { display: block; }
+.hero-highlight {
+  display: block;
+  color: orange;
+  font-family: 'UnifrakturCook', 'Old English Text MT', serif;
+}
 .hero p { margin: 1rem 0; color: var(--muted); }
 
 /* SECTIONS */
