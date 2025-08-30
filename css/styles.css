@@ -3,7 +3,7 @@
   --bg: #000;
   --fg: #f5f5f5;
   --muted: #a0a0a0;
-  --accent: #ff0055;
+  --accent: #ffa500;
   --card: #111;
   --border: #333;
 }
@@ -77,7 +77,7 @@ button.btn, a.btn {
   padding: 0.6rem 1rem;
   border-radius: 8px;
   background: var(--accent);
-  color: #fff;
+  color: #000;
   text-decoration: none;
   border: none;
   cursor: pointer;
