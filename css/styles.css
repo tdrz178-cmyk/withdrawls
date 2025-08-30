@@ -30,6 +30,7 @@ body {
   color: var(--fg);
   text-transform: uppercase;
 }
+.logo img { height: 40px; display: block; }
 .menu { list-style: none; display: flex; gap: 1rem; margin-left: auto; }
 .menu li a { color: var(--fg); text-decoration: none; }
 #menuBtn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--fg); cursor: pointer; }
@@ -42,7 +43,11 @@ body {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.hero span { color: var(--accent); }
+.hero span {
+  color: var(--accent);
+  font-family: 'Flat Brush', cursive;
+  font-style: italic;
+}
 .hero p { margin: 1rem 0; color: var(--muted); }
 
 /* SECTIONS */
