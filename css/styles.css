@@ -24,11 +24,13 @@ body {
 /* NAVIGATION */
 .nav { display: flex; align-items: center; gap: 1rem; }
 .logo {
-  text-decoration: none;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
-  color: var(--fg);
-  text-transform: uppercase;
+  display: inline-block;
+  height: 40px;
+}
+
+.logo img {
+  height: 100%;
+  display: block;
 }
 .menu { list-style: none; display: flex; gap: 1rem; margin-left: auto; }
 .menu li a { color: var(--fg); text-decoration: none; }
