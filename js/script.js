@@ -114,6 +114,20 @@ if (cartItems) {
     saveCart([]);
     location.reload();
   });
+
+  document.getElementById('checkout')?.addEventListener('click', async () => {
+    const cart = getCart();
+    if (cart.length === 0) return;
+    const res = await fetch('/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart })
+    });
+    const data = await res.json();
+    const pk = document.querySelector('meta[name="stripe-pk"]')?.content || 'pk_test_placeholder';
+    const stripe = Stripe(pk);
+    await stripe.redirectToCheckout({ sessionId: data.id });
+  });
 }
 
 updateCartCount();
