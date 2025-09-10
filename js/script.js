@@ -20,8 +20,18 @@ form?.addEventListener('submit', async (e) => {
       body: JSON.stringify(data)
     });
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'Submission failed');
+      // Attempt to parse JSON error response but fall back gracefully if
+      // the response body is empty or not valid JSON. Previously calling
+      // `res.json()` directly would throw "Unexpected end of JSON input"
+      // when the server returned an empty body, masking the real error.
+      let errorMsg = 'Submission failed';
+      try {
+        const err = await res.json();
+        errorMsg = err.error || errorMsg;
+      } catch {
+        // ignore JSON parsing errors and use the default message
+      }
+      throw new Error(errorMsg);
     }
     msg.textContent = 'Thanks for your enquiry!';
     form.reset();
