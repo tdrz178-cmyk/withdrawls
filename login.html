@@ -17,22 +17,27 @@
       </ul>
     </nav>
   </header>
-  <main class="container">
+  <main class="container auth">
     <h1>Account</h1>
-    <div class="grid">
-      <form id="signupForm">
-        <h2>Sign Up</h2>
-        <label>Username<input type="text" name="username" required></label>
-        <label>Password<input type="password" name="password" required></label>
-        <button type="submit" class="btn">Sign Up</button>
-        <p id="signupMsg"></p>
-      </form>
-      <form id="signinForm">
+    <div class="auth-grid">
+      <form id="signinForm" class="auth-card">
         <h2>Sign In</h2>
         <label>Username<input type="text" name="username" required></label>
         <label>Password<input type="password" name="password" required></label>
         <button type="submit" class="btn">Sign In</button>
+        <div class="social-login">
+          <p>Or continue with</p>
+          <button type="button" id="googleSignin" class="btn btn-google">Google</button>
+          <button type="button" id="appleSignin" class="btn btn-apple">Apple</button>
+        </div>
         <p id="signinMsg"></p>
+      </form>
+      <form id="signupForm" class="auth-card">
+        <h2>Create Account</h2>
+        <label>Username<input type="text" name="username" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <button type="submit" class="btn">Sign Up</button>
+        <p id="signupMsg"></p>
       </form>
     </div>
   </main>
