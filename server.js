@@ -127,6 +127,16 @@ app.post('/signin', async (req, res) => {
   res.json({ success: true });
 });
 
+app.post('/auth/google', (req, res) => {
+  req.session.user = 'google_user';
+  res.json({ success: true });
+});
+
+app.post('/auth/apple', (req, res) => {
+  req.session.user = 'apple_user';
+  res.json({ success: true });
+});
+
 app.post('/signout', (req, res) => {
   req.session.destroy(() => {
     res.json({ success: true });

@@ -14,6 +14,8 @@ async function send(url, data) {
 
 const signupForm = document.getElementById('signupForm');
 const signinForm = document.getElementById('signinForm');
+const googleBtn = document.getElementById('googleSignin');
+const appleBtn = document.getElementById('appleSignin');
 
 signupForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -38,6 +40,28 @@ signinForm?.addEventListener('submit', async (e) => {
     await send('/signin', data);
     msg.textContent = 'Signed in successfully!';
     signinForm.reset();
+  } catch (err) {
+    msg.textContent = err.message;
+  }
+});
+
+googleBtn?.addEventListener('click', async () => {
+  const msg = document.getElementById('signinMsg');
+  msg.textContent = '';
+  try {
+    await send('/auth/google', {});
+    msg.textContent = 'Signed in with Google!';
+  } catch (err) {
+    msg.textContent = err.message;
+  }
+});
+
+appleBtn?.addEventListener('click', async () => {
+  const msg = document.getElementById('signinMsg');
+  msg.textContent = '';
+  try {
+    await send('/auth/apple', {});
+    msg.textContent = 'Signed in with Apple!';
   } catch (err) {
     msg.textContent = err.message;
   }
