@@ -6,15 +6,15 @@ menuBtn?.addEventListener('click', () => {
   menuBtn.setAttribute('aria-expanded', String(open));
 });
 
-// Feedback form
-const form = document.getElementById('contactForm');
+// Enquiry form
+const form = document.getElementById('enquiryForm');
 const msg = document.getElementById('msg');
 form?.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.textContent = '';
   const data = Object.fromEntries(new FormData(form).entries());
   try {
-    const res = await fetch('/feedback', {
+    const res = await fetch('/enquiries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -23,7 +23,7 @@ form?.addEventListener('submit', async (e) => {
       const err = await res.json();
       throw new Error(err.error || 'Submission failed');
     }
-    msg.textContent = 'Thanks for your feedback!';
+    msg.textContent = 'Thanks for your enquiry!';
     form.reset();
   } catch (err) {
     msg.textContent = err.message || 'Submission failed';

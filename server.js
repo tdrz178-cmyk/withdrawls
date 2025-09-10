@@ -1,10 +1,17 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const nodemailer = require('nodemailer');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder');
 const app = express();
 
-const feedbackPath = path.join(__dirname, 'feedback.json');
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT, 10) || 587,
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 app.use(express.static('.'));
 app.use(express.json());
@@ -40,21 +47,22 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-app.post('/feedback', (req, res) => {
+app.post('/enquiries', async (req, res) => {
   const { name, email, message } = req.body;
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'All fields are required.' });
   }
   try {
-    let feedback = [];
-    if (fs.existsSync(feedbackPath)) {
-      feedback = JSON.parse(fs.readFileSync(feedbackPath));
-    }
-    feedback.push({ name, email, message, date: new Date().toISOString() });
-    fs.writeFileSync(feedbackPath, JSON.stringify(feedback, null, 2));
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM || 'no-reply@withdrawls',
+      to: 'tdrz178@gmail.com',
+      subject: `New enquiry from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      replyTo: email,
+    });
     res.json({ success: true });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to save feedback.' });
+    res.status(500).json({ error: 'Failed to send enquiry.' });
   }
 });
 
