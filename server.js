@@ -1,6 +1,10 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder');
+const fs = require('fs');
+const path = require('path');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
 const app = express();
 
 const transporter = nodemailer.createTransport({
@@ -15,6 +19,25 @@ const transporter = nodemailer.createTransport({
 
 app.use(express.static('.'));
 app.use(express.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'dev_secret',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+const userFile = path.join(__dirname, 'users.json');
+
+function loadUsers() {
+  try {
+    return JSON.parse(fs.readFileSync(userFile));
+  } catch {
+    return {};
+  }
+}
+
+function saveUsers(users) {
+  fs.writeFileSync(userFile, JSON.stringify(users, null, 2));
+}
 
 const products = [
   { id: 1, name: 'Widget', price: 1999 },
@@ -63,6 +86,58 @@ app.post('/enquiries', async (req, res) => {
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Failed to send enquiry.' });
+  }
+});
+
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password required.' });
+  }
+  const users = loadUsers();
+  if (users[username]) {
+    return res.status(400).json({ error: 'User already exists.' });
+  }
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    users[username] = { password: hash };
+    saveUsers(users);
+    req.session.user = username;
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create user.' });
+  }
+});
+
+app.post('/signin', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password required.' });
+  }
+  const users = loadUsers();
+  const user = users[username];
+  if (!user) {
+    return res.status(400).json({ error: 'Invalid credentials.' });
+  }
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
+    return res.status(400).json({ error: 'Invalid credentials.' });
+  }
+  req.session.user = username;
+  res.json({ success: true });
+});
+
+app.post('/signout', (req, res) => {
+  req.session.destroy(() => {
+    res.json({ success: true });
+  });
+});
+
+app.get('/me', (req, res) => {
+  if (req.session.user) {
+    res.json({ username: req.session.user });
+  } else {
+    res.status(401).json({ error: 'Not signed in.' });
   }
 });
 

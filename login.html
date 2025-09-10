@@ -3,37 +3,44 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Cart - Withdrawls Streetwear</title>
+  <title>Account - Withdrawls Streetwear</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
-  <meta name="stripe-pk" content="pk_test_placeholder" />
 </head>
 <body>
   <header class="container">
     <nav class="nav">
       <a href="/" class="logo"><img src="img/logo.svg" alt="Withdrawls.Shop logo"></a>
-      <button id="menuBtn" aria-expanded="false" aria-controls="menu">☰</button>
-      <ul id="menu" class="menu">
+      <ul class="menu">
         <li><a href="index.html">Shop</a></li>
         <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
-        <li><a href="login.html">Account</a></li>
       </ul>
     </nav>
   </header>
-
   <main class="container">
-    <h1>Your Cart</h1>
-    <div id="cartItems"></div>
-    <p id="cartTotal"></p>
-    <button id="clearCart" class="btn">Clear Cart</button>
-    <button id="checkout" class="btn">Checkout</button>
+    <h1>Account</h1>
+    <div class="grid">
+      <form id="signupForm">
+        <h2>Sign Up</h2>
+        <label>Username<input type="text" name="username" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <button type="submit" class="btn">Sign Up</button>
+        <p id="signupMsg"></p>
+      </form>
+      <form id="signinForm">
+        <h2>Sign In</h2>
+        <label>Username<input type="text" name="username" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <button type="submit" class="btn">Sign In</button>
+        <p id="signinMsg"></p>
+      </form>
+    </div>
   </main>
-
   <footer class="container">
     <small>© <span id="year"></span> Withdrawls. All rights reserved.</small>
   </footer>
-
-  <script src="https://js.stripe.com/v3/"></script>
   <script src="js/script.js" defer></script>
+  <script src="js/auth.js" defer></script>
 </body>
 </html>
+
