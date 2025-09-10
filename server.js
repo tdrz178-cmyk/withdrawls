@@ -1,6 +1,10 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder');
 const app = express();
+
+const feedbackPath = path.join(__dirname, 'feedback.json');
 
 app.use(express.static('.'));
 app.use(express.json());
@@ -33,6 +37,24 @@ app.post('/create-checkout-session', async (req, res) => {
     res.json({ id: session.id });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/feedback', (req, res) => {
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'All fields are required.' });
+  }
+  try {
+    let feedback = [];
+    if (fs.existsSync(feedbackPath)) {
+      feedback = JSON.parse(fs.readFileSync(feedbackPath));
+    }
+    feedback.push({ name, email, message, date: new Date().toISOString() });
+    fs.writeFileSync(feedbackPath, JSON.stringify(feedback, null, 2));
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to save feedback.' });
   }
 });
 
