@@ -6,15 +6,28 @@ menuBtn?.addEventListener('click', () => {
   menuBtn.setAttribute('aria-expanded', String(open));
 });
 
-// Contact form (demo only)
+// Feedback form
 const form = document.getElementById('contactForm');
 const msg = document.getElementById('msg');
-form?.addEventListener('submit', (e) => {
+form?.addEventListener('submit', async (e) => {
   e.preventDefault();
+  msg.textContent = '';
   const data = Object.fromEntries(new FormData(form).entries());
-  console.log('Form submitted:', data);
-  msg.textContent = "Thanks! (This form doesn't send yet—connect a backend like Netlify Forms or Formspree)";
-  form.reset();
+  try {
+    const res = await fetch('/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Submission failed');
+    }
+    msg.textContent = 'Thanks for your feedback!';
+    form.reset();
+  } catch (err) {
+    msg.textContent = err.message || 'Submission failed';
+  }
 });
 
 // Dynamic footer year
